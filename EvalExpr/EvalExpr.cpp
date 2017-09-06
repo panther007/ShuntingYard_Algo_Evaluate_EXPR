@@ -140,7 +140,7 @@ int evaluateExpr(std::string sExpr)
         throw EvalExceptions(MISSING_PARENTHESES);
       operatorStck.pop();
     }
-    else if ( sExpr[i] == '+' || sExpr[i] == '-' || sExpr[i] == '*' || sExpr[i] == '/' )
+    else if ( sExpr[i] == '+' || sExpr[i] == '-' || sExpr[i] == '*' || sExpr[i] == '/' || sExpr[i] == '^')
     {
       while(!operatorStck.empty() && isSecondOperatorHigher(sExpr[i], operatorStck.top()) )
       {
@@ -283,6 +283,9 @@ int solveSimpleExpr(int Value1, char cOperator, int Value2){
     case '*' : 
               return (Value1 * Value2);
               break;;
+    case '^' : 
+              return powerOf(Value1, Value2);
+              break;;
     case '/' : 
               if (Value2 == 0)
                 throw EvalExceptions(DIVIDE_BY_ZERO);
@@ -295,6 +298,21 @@ int solveSimpleExpr(int Value1, char cOperator, int Value2){
               throw EvalExceptions(INVALID_OPERATOR);
               break;;
   }
+}
+
+int powerOf(int iV1, int iV2)
+{
+  FUNC_ENTRY;
+  int iResult = 1;
+  while(iV2){
+    if (iV2 & 1)
+    {
+      iResult *= iV1;
+    }
+    iV2 >>= 1;
+    iV1 *= iV1;
+  }
+  return iResult;
 }
 
 EvalExceptions::EvalExceptions() : _error_code_m(DEFAULT_ERROR){

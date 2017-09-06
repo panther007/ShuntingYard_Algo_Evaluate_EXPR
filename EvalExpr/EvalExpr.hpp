@@ -30,6 +30,7 @@ struct EvalExceptions : public std::exception
 int evaluateExpr(std::string sExpr);
 bool isSecondOperatorHigher(char Operator1, char Operator2);
 int solveSimpleExpr(int Value1, char cOperator, int Value2);
+int powerOf(int iV1, int iV2);
 
 #endif //#ifndef _EVALEXPR_HPP
 
